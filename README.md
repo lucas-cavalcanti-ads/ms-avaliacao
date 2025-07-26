@@ -6,41 +6,40 @@ Microserviço desenvolvido em Spring Boot com Java 21 responsável por operaçõ
 
 ## 🚀 Tecnologias utilizadas
 
-- Java 21 (Temurin)
+- Java 21
 - Spring Boot 3.2.5
   - Spring Web
   - Spring Data JPA
   - H2 Database
   - Lombok
-  - (Opcional) Spring Boot Docker Compose
 - Maven
-- (Opcional) Docker Compose
 
 ## 📁 Estrutura do projeto
-
+```
 ms-avaliacao/
 ├── src/
 │ ├── main/
 │ │ ├── java/com/lucavpa/msavaliacao/
 │ │ │ ├── controller/
 │ │ │ ├── service/
+│ │ │ ├── repository/
 │ │ │ ├── model/
 │ │ │ └── MsAvaliacaoApplication.java
-│ │ └── resources/
-│ │ ├── application.properties
+│ │ ├── resources/
+│ │   └── application.properties
 │ │ └── static/
 │ └── test/
-├── compose.yaml (opcional)
 ├── pom.xml
+├── .github
 └── README.md
 
+```
 ---
 
 ## ⚙️ Pré-requisitos
 
 - [JDK 21](https://adoptium.net/en-GB/temurin/releases/?version=21) instalado
 - [Maven](https://maven.apache.org/) ou utilizar o Maven Wrapper (`./mvnw`)
-- Docker e Docker Compose (opcional)
 
 ---
 
@@ -55,5 +54,4 @@ ms-avaliacao/
 
 # ou, com Maven instalado globalmente
 mvn spring-boot:run
-
 '''
