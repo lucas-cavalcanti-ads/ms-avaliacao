@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/review")
+@RequestMapping("/reviews")
 public class ReviewController {
 
     @Autowired
@@ -26,4 +26,10 @@ public class ReviewController {
     public ResponseEntity<List<Review>> getAll(){
         return new ResponseEntity<>(reviewService.getAll(), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Review> getById(@PathVariable Long id){
+        return new ResponseEntity<>(reviewService.getById(id), HttpStatus.OK);
+    }
+
 }

@@ -24,4 +24,9 @@ public class ReviewService {
         return repository.findAll();
     }
 
+    public Review getById (Long id) {
+        System.out.println("[LOG][SERVICE] getAll");
+        return repository.findById(id).get();
+    }
+
 }
