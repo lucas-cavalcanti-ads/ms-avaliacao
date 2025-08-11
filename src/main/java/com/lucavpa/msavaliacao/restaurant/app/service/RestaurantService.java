@@ -1,9 +1,9 @@
-package com.lucavpa.msavaliacao.service;
+package com.lucavpa.msavaliacao.restaurant.app.service;
 
-import com.lucavpa.msavaliacao.handler.ApiExceptionHandler;
-import com.lucavpa.msavaliacao.model.Review;
-import com.lucavpa.msavaliacao.model.ReviewAverageDto;
-import com.lucavpa.msavaliacao.repository.ReviewRepository;
+import com.lucavpa.msavaliacao.shared.web.handler.ApiExceptionHandler;
+import com.lucavpa.msavaliacao.review.domain.model.Review;
+import com.lucavpa.msavaliacao.review.domain.model.ReviewAverageDto;
+import com.lucavpa.msavaliacao.review.infra.repository.ReviewRepository;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class RestaurantService {
     public List<Review> getAllByRestaurantId (Long restaurantId)  {
         List<Review> reviewListConsultedByRestaurantId = repository.findByRestaurantId(restaurantId);
 
-        logger.info("[SERVICE][REVIEWS] Consulta a lista de todas as avaliações por ID restaurante finalizada com sucesso.");
+        logger.info("[SERVICE][RESTAURANT] Consulta a lista de todas as avaliações por ID restaurante finalizada com sucesso.");
 
         return reviewListConsultedByRestaurantId;
     }
@@ -43,7 +43,7 @@ public class RestaurantService {
 
         ReviewAverageDto reviewAverageDto = new ReviewAverageDto(restaurantId, amountReviews, averageOrderReview);
 
-        logger.info("[SERVICE][REVIEWS] Consulta a média da nota de um restaurante por ID restaurante finalizada com sucesso.");
+        logger.info("[SERVICE][RESTAURANT] Consulta a média da nota de um restaurante por ID restaurante finalizada com sucesso.");
 
         return reviewAverageDto;
     }

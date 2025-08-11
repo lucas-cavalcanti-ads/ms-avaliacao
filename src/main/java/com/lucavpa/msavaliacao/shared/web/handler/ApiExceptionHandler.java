@@ -1,6 +1,6 @@
-package com.lucavpa.msavaliacao.handler;
+package com.lucavpa.msavaliacao.shared.web.handler;
 
-import com.lucavpa.msavaliacao.exception.ReviewNotFoundException;
+import com.lucavpa.msavaliacao.review.domain.exception.ReviewNotFoundException;
 
 import java.util.List;
 import java.util.Map;

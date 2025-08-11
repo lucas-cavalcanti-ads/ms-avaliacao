@@ -1,4 +1,4 @@
-package com.lucavpa.msavaliacao.config;
+package com.lucavpa.msavaliacao.shared.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
