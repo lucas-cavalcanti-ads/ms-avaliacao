@@ -1,8 +1,7 @@
-package com.lucavpa.msavaliacao.controller;
+package com.lucavpa.msavaliacao.review.web.controller;
 
-import com.lucavpa.msavaliacao.model.Review;
-import com.lucavpa.msavaliacao.service.RestaurantService;
-import com.lucavpa.msavaliacao.service.ReviewService;
+import com.lucavpa.msavaliacao.review.domain.model.Review;
+import com.lucavpa.msavaliacao.review.app.service.ReviewService;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.lucavpa.msavaliacao.exception;
+package com.lucavpa.msavaliacao.review.domain.exception;
 
 public class ReviewNotFoundException extends RuntimeException{
 

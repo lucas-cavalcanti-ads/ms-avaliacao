@@ -1,8 +1,8 @@
-package com.lucavpa.msavaliacao.controller;
+package com.lucavpa.msavaliacao.restaurant.web.controller;
 
-import com.lucavpa.msavaliacao.model.Review;
-import com.lucavpa.msavaliacao.model.ReviewAverageDto;
-import com.lucavpa.msavaliacao.service.RestaurantService;
+import com.lucavpa.msavaliacao.review.domain.model.Review;
+import com.lucavpa.msavaliacao.review.domain.model.ReviewAverageDto;
+import com.lucavpa.msavaliacao.restaurant.app.service.RestaurantService;
 
 import java.util.List;
 
@@ -24,13 +24,13 @@ public class RestaurantController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<List<Review>> getById (@PathVariable Long id) {
-        logger.info("[CONTROLLER][REVIEWS] Iniciando Consulta de todas as Avaliações de um Restaurante.");
+        logger.info("[CONTROLLER][RESTAURANT] Iniciando Consulta de todas as Avaliações de um Restaurante.");
         return new ResponseEntity<>(restaurantService.getAllByRestaurantId(id), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/average")
     public ResponseEntity<ReviewAverageDto> getAverageByRestaurantId (@PathVariable Long id) {
-        logger.info("[CONTROLLER][REVIEWS] Iniciando Consulta da média da nota de todas as Avaliações de um Restaurante.");
+        logger.info("[CONTROLLER][RESTAURANT] Iniciando Consulta da média da nota de todas as Avaliações de um Restaurante.");
         return new ResponseEntity<>(restaurantService.getOrderAverageReviewByRestaurantId(id), HttpStatus.OK);
     }
 

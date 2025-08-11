@@ -1,9 +1,9 @@
-package com.lucavpa.msavaliacao.service;
+package com.lucavpa.msavaliacao.review.app.service;
 
-import com.lucavpa.msavaliacao.exception.ReviewNotFoundException;
-import com.lucavpa.msavaliacao.handler.ApiExceptionHandler;
-import com.lucavpa.msavaliacao.repository.ReviewRepository;
-import com.lucavpa.msavaliacao.model.Review;
+import com.lucavpa.msavaliacao.review.domain.exception.ReviewNotFoundException;
+import com.lucavpa.msavaliacao.shared.web.handler.ApiExceptionHandler;
+import com.lucavpa.msavaliacao.review.infra.repository.ReviewRepository;
+import com.lucavpa.msavaliacao.review.domain.model.Review;
 
 import java.util.List;
 
