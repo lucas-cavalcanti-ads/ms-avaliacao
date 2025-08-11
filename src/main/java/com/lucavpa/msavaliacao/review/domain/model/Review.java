@@ -1,4 +1,4 @@
-package com.lucavpa.msavaliacao.model;
+package com.lucavpa.msavaliacao.review.domain.model;
 
 import java.time.LocalDateTime;
 

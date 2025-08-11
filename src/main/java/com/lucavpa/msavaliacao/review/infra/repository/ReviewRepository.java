@@ -1,6 +1,6 @@
-package com.lucavpa.msavaliacao.repository;
+package com.lucavpa.msavaliacao.review.infra.repository;
 
-import com.lucavpa.msavaliacao.model.Review;
+import com.lucavpa.msavaliacao.review.domain.model.Review;
 
 import java.util.List;
 
