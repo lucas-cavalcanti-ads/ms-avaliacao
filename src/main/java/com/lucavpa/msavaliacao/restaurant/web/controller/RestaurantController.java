@@ -17,8 +17,9 @@ import org.apache.logging.log4j.Logger;
 @RequestMapping("/restaurant")
 public class RestaurantController {
 
-    @Autowired
-    RestaurantService restaurantService;
+    private final RestaurantService restaurantService;
+
+    public RestaurantController(RestaurantService service) { this.restaurantService = service; }
 
     private static final Logger logger = LogManager.getLogger(RestaurantController.class);
 
