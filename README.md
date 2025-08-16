@@ -98,8 +98,8 @@ docker run --rm -p 8081:8080 ms-avaliacao:dev
   - URI: /restaurant/{id}/average
 
 ## Backlog (em ordem de prioridade)
-- Implementação de Actuator
 - Testes unitários
+- Implementação de Actuator
 - Configuração de esteira CI
 - Configuração de esteira CD
 - Publicação em provedor de Cloud Pública (AWS)

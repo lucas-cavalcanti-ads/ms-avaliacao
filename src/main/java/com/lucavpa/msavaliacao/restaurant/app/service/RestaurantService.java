@@ -16,7 +16,7 @@ public class RestaurantService {
 
     private final ReviewRepository repository;
 
-    private static final Logger logger = LogManager.getLogger(ApiExceptionHandler.class);
+    private static final Logger logger = LogManager.getLogger(RestaurantService.class);
 
     public RestaurantService (ReviewRepository reviewRepository) {
         this.repository = reviewRepository;

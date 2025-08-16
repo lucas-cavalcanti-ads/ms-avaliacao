@@ -2,6 +2,8 @@ package com.lucavpa.msavaliacao.review.domain.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -32,8 +34,10 @@ public class Review {
     private Long personId;
 
     @NotNull(message = "A nota da avaliação é obrigatório.")
+    @Min(1)
+    @Max(5)
     @Column(name = "order_number", nullable = false)
-    private int orderNumber;
+    private Integer orderNumber;
 
     @Column(name = "comment", length = 100, nullable = false)
     private String comment;
