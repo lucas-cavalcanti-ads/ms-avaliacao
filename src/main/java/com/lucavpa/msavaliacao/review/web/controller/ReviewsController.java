@@ -2,42 +2,62 @@ package com.lucavpa.msavaliacao.review.web.controller;
 
 import com.lucavpa.msavaliacao.review.domain.model.Review;
 import com.lucavpa.msavaliacao.review.app.service.ReviewService;
+import com.lucavpa.msavaliacao.review.web.mapper.ReviewMapper;
+import com.lucavpa.msavaliacao.review.web.request.CreateReviewRequest;
+import com.lucavpa.msavaliacao.review.web.response.ReviewResponse;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/reviews")
 public class ReviewsController {
 
-    @Autowired
-    ReviewService reviewService;
+    private final ReviewService reviewService;
+    private final ReviewMapper reviewMapper;
 
     private static final Logger logger = LogManager.getLogger(ReviewsController.class);
 
+    public ReviewsController (ReviewService service, ReviewMapper mapper) {
+        this.reviewService = service;
+        this.reviewMapper = mapper;
+    }
+
     @GetMapping
-    public ResponseEntity<List<Review>> getAll () {
+    public ResponseEntity<List<ReviewResponse>> getAll () {
+
         logger.info("[CONTROLLER][REVIEWS] Iniciando Consulta de todas as Avaliações.");
-        return new ResponseEntity<>(reviewService.getAll(), HttpStatus.OK);
+
+        List<Review> reviewList = reviewService.getAll();
+
+        return new ResponseEntity<>(reviewMapper.listEntityToListResponse(reviewList), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Review> getById (@PathVariable Long id) {
+    public ResponseEntity<ReviewResponse> getById (@PathVariable Long id) {
+
         logger.info("[CONTROLLER][REVIEWS] Iniciando Consulta de uma Avaliação specífica.");
-        return new ResponseEntity<>(reviewService.getById(id), HttpStatus.OK);
+
+        Review reviewConsulted = reviewService.getById(id);
+
+        return new ResponseEntity<>(reviewMapper.entityToResponse(reviewConsulted), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity <Review> save (@RequestBody Review review) {
+    public ResponseEntity <ReviewResponse> save (@Valid @RequestBody CreateReviewRequest request) {
+
         logger.info("[CONTROLLER][REVIEWS] Iniciando Inclusão de Avaliação.");
-        return new ResponseEntity<>(reviewService.save(review), HttpStatus.CREATED);
+
+        Review reviewCreated = reviewService.save(reviewMapper.requestToEntity(request));
+
+        return new ResponseEntity<>(reviewMapper.entityToResponse(reviewCreated), HttpStatus.CREATED);
     }
 
 }
