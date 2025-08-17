@@ -1,9 +1,10 @@
 package com.lucavpa.msavaliacao.review.web.handler;
 
-import com.lucavpa.msavaliacao.review.domain.exception.ReviewNotFoundException;
+import com.lucavpa.msavaliacao.review.domain.exception.ReviewNotFoundByIdException;
 
 import java.util.Map;
 
+import com.lucavpa.msavaliacao.review.domain.exception.ReviewNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,11 +19,9 @@ public class ReviewApiExceptionHandler {
 
     private static final Logger logger = LogManager.getLogger(ReviewApiExceptionHandler.class);
 
-    record AtributesError (String propertyPath, String messageTemplate){}
-
-    @ExceptionHandler(ReviewNotFoundException.class)
-    public ResponseEntity<String> handlerReviewNotFound(
-            ReviewNotFoundException exception, HttpServletRequest request) {
+    @ExceptionHandler(ReviewNotFoundByIdException.class)
+    public ResponseEntity<String> handlerReviewNotByIdFound(
+            ReviewNotFoundByIdException exception, HttpServletRequest request) {
 
         Map<String, Object> body = Map.of(
             "title", "Recurso não encontrado",
@@ -31,7 +30,23 @@ public class ReviewApiExceptionHandler {
             "uri", request.getRequestURI()
         );
 
-        logger.warn("[HANDLER][REVIEWS] Avaliação não encontrada " + body);
+        logger.warn("[HANDLER][REVIEWS] Avaliação não encontrada por ID" + body);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(ReviewNotFoundException.class)
+    public ResponseEntity<String> handlerReviewNotFound(
+            ReviewNotFoundException exception, HttpServletRequest request) {
+
+        Map<String, Object> body = Map.of(
+                "title", "Recurso não encontrado",
+                "status", 404,
+                "detail", exception.getMessage(),
+                "uri", request.getRequestURI()
+        );
+
+        logger.warn("[HANDLER][REVIEWS] Nenhuma avaliação encontrada" + body);
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }

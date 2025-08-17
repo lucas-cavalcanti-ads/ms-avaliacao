@@ -1,5 +1,6 @@
 package com.lucavpa.msavaliacao.review.app.service;
 
+import com.lucavpa.msavaliacao.review.domain.exception.ReviewNotFoundByIdException;
 import com.lucavpa.msavaliacao.review.domain.exception.ReviewNotFoundException;
 import com.lucavpa.msavaliacao.review.domain.model.Review;
 import com.lucavpa.msavaliacao.review.infra.repository.ReviewRepository;
@@ -23,7 +24,9 @@ import java.util.Optional;
 @ExtendWith(MockitoExtension.class)
 class ReviewServiceTest {
 
-    // AAA -> Arrange (Prepara), Act (Ação), Assert (Validação)
+    /*
+    * Utilizar o método AAA -> Arrange (Prepara), Act (Ação), Assert (Validação)
+    * */
 
     @Mock
     ReviewRepository reviewRepository;
@@ -100,7 +103,7 @@ class ReviewServiceTest {
 
     @Test
     @DisplayName("Garantir a Consulta de todas as avaliações cadastradas")
-    void garantirConsultaTodasAvaliacoesCadastradas () {
+    void garantirConsultaTodasAvaliacoesCadastradas () throws Exception {
         // Arrange
         Review review1 = new Review(1L,2L,3L,1, "Péssimo!", LocalDateTime.parse("2025-08-12T18:10:57.291191"));
         Review review2 = new Review(2L,3L,4L,2, "Não gostei", LocalDateTime.parse("2025-09-12T17:10:57.291190"));
@@ -124,23 +127,26 @@ class ReviewServiceTest {
 
     @Test
     @DisplayName("Garantir o retorno a consulta de todas as avaliações caso não tenha nenhuma avaliação cadastrada")
-    void garantirRetornoConsultaTodasAvaliacoesSemNenhumaAvaliacaoCadastrada () {
+    void garantirRetornoConsultaTodasAvaliacoesSemNenhumaAvaliacaoCadastrada () throws Exception {
 
         // Arrange
         List<Review> listVoidReview = new ArrayList<>();
 
         when(reviewRepository.findAll()).thenReturn(listVoidReview);
 
-        // Act
-        List<Review> listReviewConsulted = reviewService.getAll();
+        // Act + Assert
+        Exception exception = assertThrows(ReviewNotFoundException.class, () -> {
+            List<Review> reviewListConsulted = reviewService.getAll();
+        });
 
         // Assert
-        assertEquals(listVoidReview, listReviewConsulted);
+        assertEquals("Nenhuma avaliação encontrada.", exception.getMessage());
+
     }
 
     @Test
     @DisplayName("Garantir que o método getAll realize somente uma interação com o repository")
-    void garantirQueMetodoGetAllInterajaSomenteUmaVezComRepository () {
+    void garantirQueMetodoGetAllInterajaSomenteUmaVezComRepository () throws Exception {
         // Arrange
         Review review1 = new Review(1L,2L,3L,1, "Péssimo!", LocalDateTime.parse("2025-08-12T18:10:57.291191"));
         Review review2 = new Review(2L,3L,4L,2, "Não gostei", LocalDateTime.parse("2025-09-12T17:10:57.291190"));
@@ -163,7 +169,6 @@ class ReviewServiceTest {
 
     }
 
-
     /*
      * Método getById
      * */
@@ -175,10 +180,12 @@ class ReviewServiceTest {
         // Arrange
         Review review = new Review(1L,2L,3L,1, "Péssimo!", LocalDateTime.parse("2025-08-12T18:10:57.291191"));
 
-        when(reviewRepository.findById(1L)).thenReturn(Optional.of(review));
+        Long reviewId = 1L;
+
+        when(reviewRepository.findById(reviewId)).thenReturn(Optional.of(review));
 
         // Act
-        Review reviewConsulted = reviewService.getById(1L);
+        Review reviewConsulted = reviewService.getById(reviewId);
 
         // Assert
         assertEquals(review, reviewConsulted);
@@ -189,9 +196,12 @@ class ReviewServiceTest {
     @DisplayName("Garantir o retorno/tratamento correto da consulta de avaliação por ID, caso não encontre uma avaliação")
     void garantirRetornoCorretoConsultaAvaliacaoPorIdCasoNaoEncontre () {
 
+        // Arrange
+        Long reviewId = 2L;
+
         // Act
-        Exception exception = assertThrows(ReviewNotFoundException.class, () -> {
-           Review reviewConsulted = reviewService.getById(2L);
+        Exception exception = assertThrows(ReviewNotFoundByIdException.class, () -> {
+           Review reviewConsulted = reviewService.getById(reviewId);
         });
 
         // Assert
@@ -205,13 +215,15 @@ class ReviewServiceTest {
         // Arrange
         Review review = new Review(1L,2L,3L,1, "Péssimo!", LocalDateTime.parse("2025-08-12T18:10:57.291191"));
 
-        when(reviewRepository.findById(1L)).thenReturn(Optional.of(review));
+        Long reviewId = 1L;
+
+        when(reviewRepository.findById(reviewId)).thenReturn(Optional.of(review));
 
         // Act
-        Review reviewConsulted = reviewService.getById(1L);
+        Review reviewConsulted = reviewService.getById(reviewId);
 
         // Assert
-        verify(reviewRepository, times(1)).findById(1L);
+        verify(reviewRepository, times(1)).findById(reviewId);
         verifyNoMoreInteractions(reviewRepository);
 
     }
