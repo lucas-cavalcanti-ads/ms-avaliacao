@@ -3,7 +3,7 @@ name: "1 - Build & Create PR Develop"
 on:
   push:
     branches:
-      - "feature/**"
+      - "feat/**"
 
 concurrency:
   group: build-${{ github.ref }}
