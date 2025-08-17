@@ -31,7 +31,7 @@ public class ReviewsController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReviewResponse>> getAll () {
+    public ResponseEntity<List<ReviewResponse>> getAll () throws Exception{
 
         logger.info("[CONTROLLER][REVIEWS] Iniciando Consulta de todas as Avaliações.");
 
